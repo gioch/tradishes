@@ -1,0 +1,52 @@
+!!!
+html
+  head
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    script(type='text/javascript')
+      var submitForm = function(formName) {
+        document.forms[formName].submit(); 
+      }
+
+  body 
+    div#header
+      div.center-small.height50
+        div.logo-center-small
+          | TRADISHES
+
+    div.center-small.mt50   
+      div.mt20.height50
+        form(name='addRecipeForm', method='post', action='/save')
+
+          div.inline-block
+            label.combo-box-label.mr15
+              select(name='country').width250
+                option(value='0', selected) Country
+                each country, i  in countries
+                  option(value='#{i + 1}') #{country.name}
+              
+          div.inline-block      
+            label.combo-box-label
+              select(name='category').width250
+                option(value='0', selected) Category
+                each category, i  in categories
+                  option(value='#{i + 1}') #{category.name}
+
+          div.inline-block.mt15.mr15
+            label.combo-box-label
+              select(name='type').width250
+                option(value='0', selected) Type
+                each type, i  in types
+                  option(value='#{i + 1}') #{type.name}
+
+          div.inline-block.mt15
+            input(name='time', placeholder='Time to coock').width220
+
+          div.inline-block.mt15.mr15
+            input(name='name', placeholder='Dish name').width485
+
+          div.inline-block.mt15
+            input(name='img', placeholder='Dish photo link').width485
+
+          div(onclick="submitForm('addRecipeForm')").button.orange.height15.inline-block.width510.mt15
+            | Add Recipe
+ 

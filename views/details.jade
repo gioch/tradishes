@@ -1,0 +1,59 @@
+!!!
+html
+  head
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    script(type='text/javascript')
+      var submitForm = function(formName) {
+        document.forms[formName].submit(); 
+      }
+
+      var showDetails = function(itemIndex) {
+        window.location = "/recipes/"+itemIndex;
+      }
+
+      var addToFavs = function(itemIndex) {
+        window.location = "/addToFavs/"+itemIndex;
+      }
+
+  body 
+    div#header
+      div.center.height50
+        div.logo
+          | TRADISHES     
+    div.center.mt50   
+      div.mt20.height50
+        form(name='detailedSearchForm', method='post', action='/detailedSearch')
+          label.combo-box-label.mr15
+            select(name='country').width250
+              option(value='0', selected) Country
+              each country, i  in countries
+                option(value='#{i + 1}') #{country.name}
+              
+
+          label.combo-box-label.mr15
+            select(name='category').width250
+              option(value='0', selected) Category
+              each category, i  in categories
+                option(value='#{i + 1}') #{category.name}
+
+          label.combo-box-label.mr15
+            select(name='type').width250
+              option(value='0', selected) Type
+              each type, i  in types
+                option(value='#{i + 1}') #{type.name}
+
+          div(onclick="submitForm('detailedSearchForm')").button.orange.height15.inline-block.width100
+            | Find
+
+      div#recipes.mt20
+        div.recipe-details-wrap.mr50
+          div.image
+            img(src='#{dish.img}')
+          div.desc
+            div.name #{dish.name} 
+            div.info Country: #{countries[dish.country].name}
+            div.info Category: #{categories[dish.category].name}
+            div.info Type: #{types[dish.type].name} 
+            div.info Preparation time: #{dish.time} min
+            div(onclick="addToFavs(#{index})").button.orange.height15.mt20.inline-block.width250
+              | Add To Favorites
